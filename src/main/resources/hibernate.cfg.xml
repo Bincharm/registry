@@ -20,5 +20,6 @@
 
 		<!-- Mapping With Model Class Containing Annotations -->
 		<mapping class="com.sabina.registry.entity.Employee" />
+		<mapping class="com.sabina.registry.entity.Company" />
 	</session-factory>
 </hibernate-configuration>

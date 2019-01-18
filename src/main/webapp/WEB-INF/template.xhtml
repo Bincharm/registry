@@ -25,11 +25,17 @@
                 <li class="#{view.viewId == '/index.xhtml' ? 'active' : ''} nav-item">
                     <h:link styleClass="nav-link" outcome="/index" value="Home"/>
                 </li>
-                <li class="#{view.viewId == '/pages/list-employees.xhtml' ? 'active' : ''} nav-item">
-                    <h:link styleClass="nav-link" outcome="/pages/list-employees" value="Employees"/>
+                <li class="#{view.viewId == '/pages/company/list-companies.xhtml' ? 'active' : ''} nav-item">
+                    <h:link styleClass="nav-link" outcome="/pages/company/list-companies" value="Companies"/>
                 </li>
-                <li class="#{view.viewId == '/pages/add-employee.xhtml' ? 'active' : ''} nav-item">
-                    <h:link styleClass="nav-link" outcome="/pages/add-employee" value="Add Employee"/>
+                <li class="#{view.viewId == '/pages/employee/list-employees.xhtml' ? 'active' : ''} nav-item">
+                    <h:link styleClass="nav-link" outcome="/pages/employee/list-employees" value="Employees"/>
+                </li>
+                <li class="#{view.viewId == '/pages/company/add-company.xhtml' ? 'active' : ''} nav-item">
+                    <h:link styleClass="nav-link" outcome="/pages/company/add-company" value="Add Company"/>
+                </li>
+                <li class="#{view.viewId == '/pages/employee/add-employee.xhtml' ? 'active' : ''} nav-item">
+                    <h:link styleClass="nav-link" outcome="/pages/employee/add-employee" value="Add Employee"/>
                 </li>
             </ul>
         </div>

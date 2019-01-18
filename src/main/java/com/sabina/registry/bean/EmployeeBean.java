@@ -18,19 +18,19 @@ public class EmployeeBean {
 
     private Integer id;
 
-    private String firstName;
+    private String employeeName;
 
-    private String lastName;
+    private String homePhoneNumber;
 
     public EmployeeBean() {
 
     }
 
-    private static final Employee[] employeeList = new Employee[] {
-        new Employee("Intel CPU", "123"),
-        new Employee("Intel weCPU", "1323"),
-        new Employee("Intel 23CPU", "12233"),
-    };
+//    private static final Employee[] employeeList = new Employee[] {
+//        new Employee("Intel CPU", "123"),
+//        new Employee("Intel weCPU", "1323"),
+//        new Employee("Intel 23CPU", "12233"),
+//    };
 
 //    public Employee[] getEmployeeList() {
 ////        return employeeList;
@@ -43,24 +43,24 @@ public class EmployeeBean {
 
     public String save() {
         EmployeeDAO employeeDAO = new EmployeeDAO();
-        Employee employee = new Employee(firstName, lastName);
+        Employee employee = new Employee(employeeName, homePhoneNumber);
         employeeDAO.save(employee);
-        System.out.println("Employee successfully saved.");
+        System.out.println("Employee has been successfully saved.");
 
         return "list-employees";
     }
 
     public String updatePage(Employee o) {
         this.id = o.getId();
-        this.firstName = o.getFirstName();
-        this.lastName = o.getLastName();
+        this.employeeName = o.getEmployeeName();
+        this.homePhoneNumber = o.getHomePhoneNumber();
 
         return "edit-employee";
     }
 
     public String update() {
         EmployeeDAO employeeDAO = new EmployeeDAO();
-        Employee employee = new Employee(firstName, lastName);
+        Employee employee = new Employee(employeeName, homePhoneNumber);
         employee.setId(id);
         employeeDAO.update(employee);
         System.out.println("Employee has been successfully saved.");
@@ -72,25 +72,25 @@ public class EmployeeBean {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         employeeDAO.delete(id);
         System.out.println(id);
-        System.out.println("Employee successfully deleted.");
+        System.out.println("Employee has been successfully deleted.");
 
         return "list-employees";
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getHomePhoneNumber() {
+        return homePhoneNumber;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setHomePhoneNumber(String homePhoneNumber) {
+        this.homePhoneNumber = homePhoneNumber;
     }
 
     public Integer getId() {

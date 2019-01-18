@@ -1,0 +1,39 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:define name="title">
+        Add Company
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <div class="form-group row">
+                <label for="typeOfOwnership" class="col-sm-2 col-form-label">Type of ownership</label>
+                <div class="col-sm-10">
+                    <h:inputText styleClass="form-control" id="typeOfOwnership" value="#{companyBean.typeOfOwnership}" a:placeholder="Type of ownership" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="legalForm" class="col-sm-2 col-form-label">Legal form</label>
+                <div class="col-sm-10">
+                    <h:inputText styleClass="form-control" id="legalForm" value="#{companyBean.legalForm}" a:placeholder="Legal form" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <!--<h:commandButton value="Submit" action="list-employees" styleClass="btn btn-primary"/>-->
+                    <h:commandButton value="Submit" action="#{companyBean.save}" styleClass="btn btn-primary"/>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+
+
+
+

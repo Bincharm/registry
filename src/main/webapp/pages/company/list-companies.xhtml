@@ -1,0 +1,54 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="title">
+        Companies
+    </ui:define>
+
+    <ui:define name="content">
+        <h:dataTable value="#{companyBean.companyList}" var="o"
+                     styleClass="table table-striped table-hover"
+                     headerClass="order-table-header"
+                     rowClasses="order-table-odd-row,order-table-even-row"
+        >
+
+            <h:column>
+                <!-- column header -->
+                <f:facet name="header">Type of ownership</f:facet>
+                <!-- row record -->
+                #{o.typeOfOwnership}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Legal form</f:facet>
+                #{o.legalForm}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Actions</f:facet>
+                <h:form>
+                    <h:commandLink value="Delete" action="#{companyBean.delete(o.id)}"/>
+                </h:form>
+
+                <h:form>
+                    <h:commandLink value="Update" action="#{companyBean.updatePage(o)}"/>
+                </h:form>
+
+               <!-- <h:link value="Edit" outcome="edit-employee.xhtml">
+                    <f:param name="id" value="#{o.id}" />
+                </h:link>-->
+            </h:column>
+
+
+
+        </h:dataTable>
+    </ui:define>
+</ui:composition>
+
+
+
+
+

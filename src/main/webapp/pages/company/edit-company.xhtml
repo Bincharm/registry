@@ -5,27 +5,27 @@
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
     <ui:define name="title">
-        Update Employee
+        Update Company
     </ui:define>
 
     <ui:define name="content">
         <h:form>
             <div class="form-group row">
-                <label for="firstName" class="col-sm-2 col-form-label">First name</label>
+                <label for="typeOfOwnership" class="col-sm-2 col-form-label">Type of ownership</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="firstName" value="#{employeeBean.firstName}" a:placeholder="First name" />
+                    <h:inputText styleClass="form-control" id="typeOfOwnership" value="#{companyBean.typeOfOwnership}" a:placeholder="Type of ownership" />
                 </div>
             </div>
             <div class="form-group row">
-                <label for="lastName" class="col-sm-2 col-form-label">Last name</label>
+                <label for="legalForm" class="col-sm-2 col-form-label">Legal form</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="lastName" value="#{employeeBean.lastName}" a:placeholder="Last name" />
+                    <h:inputText styleClass="form-control" id="legalForm" value="#{companyBean.legalForm}" a:placeholder="Legal form" />
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <h:commandButton value="Submit" action="#{employeeBean.update}" styleClass="btn btn-primary"/>
+                    <h:commandButton value="Submit" action="#{companyBean.update}" styleClass="btn btn-primary"/>
                 </div>
             </div>
         </h:form>

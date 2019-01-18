@@ -12,17 +12,17 @@ public class Employee {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "employee_name")
+    private String employeeName;
 
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "home_phone_number")
+    private String homePhoneNumber;
 
     public Employee() { }
 
-    public Employee(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Employee(String employeeName, String lastName) {
+        this.employeeName = employeeName;
+        this.homePhoneNumber = homePhoneNumber;
     }
 
     public int getId() {
@@ -33,19 +33,19 @@ public class Employee {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getHomePhoneNumber() {
+        return homePhoneNumber;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setHomePhoneNumber(String homePhoneNumber) {
+        this.homePhoneNumber = homePhoneNumber;
     }
 }
