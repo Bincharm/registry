@@ -130,7 +130,7 @@ public class CompanyBean {
         CompanyDAO companyDAO = new CompanyDAO();
         companyDAO.delete(id);
         System.out.println(id);
-        System.out.println("Company successfully deleted.");
+        System.out.println("Company has been successfully deleted.");
 
         return "list-companies?faces-redirect=true";
     }
@@ -248,10 +248,3 @@ public class CompanyBean {
     }
 
 }
-
-
-
-
-
-
-
