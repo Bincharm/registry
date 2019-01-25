@@ -3,16 +3,19 @@ package com.sabina.registry.bean;
 import com.sabina.registry.dao.CompanyDAO;
 import com.sabina.registry.entity.Company;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import java.util.List;
+import java.util.Map;
+import java.util.Date;
 
-@ManagedBean(name = "companyBean", eager = true)
-@SessionScoped
+@ManagedBean(name = "companyBean")
+@RequestScoped
 public class CompanyBean {
 
     private Integer id;
@@ -21,50 +24,106 @@ public class CompanyBean {
 
     private String legalForm;
 
+    private String companyName;
+
+    private String managerName;
+
+    private String fax;
+
+    private String phoneNumber;
+
+    private String webPage;
+
+    private String licenseNumber;
+
+    private Date licenseDate;
+
+    private String certificateNumber;
+
+    private Date certificateDate;
+
+    private String address;
+
+    private String attachedFilesPath;
+
     public CompanyBean() {
 
     }
 
-//    private static final Company[] companyList = new Company[] {
-//        new Company("Intel CPU", "123"),
-//        new Company("Intel weCPU", "1323"),
-//        new Company("Intel 23CPU", "12233"),
-//    };
+    private List<Company> companyList;
 
-//    public Company[] getCompanyList() {
-////        return companyList;
-////    }
+
+    @PostConstruct
+    public void init() {
+        CompanyDAO companyDAO = new CompanyDAO();
+        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+
+        String companyId = requestParameterMap.get("id");
+
+        // if "id" parameter is specified
+        // retrieve company with such id
+        // otherwise get list of all companies
+        if (companyId != null) {
+            int parsedId = Integer.parseInt(companyId);
+            System.out.println("ID =  " + parsedId);
+
+            Company company = companyDAO.getCompany(parsedId);
+
+            // fulfill bean with entity properties
+            id = parsedId;
+            typeOfOwnership = company.getTypeOfOwnership();
+            legalForm = company.getLegalForm();
+            companyName = company.getCompanyName();
+            managerName = company.getManagerName();
+            fax = company.getFax();
+            phoneNumber = company.getPhoneNumber();
+            webPage = company.getWebPage();
+            licenseNumber = company.getLicenseNumber();
+            licenseDate = company.getLicenseDate();
+            certificateNumber = company.getCertificateNumber();
+            certificateDate = company.getCertificateDate();
+            address = company.getAddress();
+            attachedFilesPath = company.getAttachedFilesPath();
+        } else {
+            companyList = companyDAO.getAll();
+        }
+
+    }
+
 
     public List<Company> getCompanyList() {
-        CompanyDAO companyDAO = new CompanyDAO();
-        return companyDAO.getAll();
+        return companyList;
     }
 
     public String save() {
         CompanyDAO companyDAO = new CompanyDAO();
-        Company company = new Company(typeOfOwnership, legalForm);
+        Company company = new Company(typeOfOwnership, legalForm, companyName, managerName, fax, phoneNumber,
+                webPage, licenseNumber, licenseDate, certificateNumber, certificateDate,
+                address, attachedFilesPath);
         companyDAO.save(company);
         System.out.println("Company has been successfully saved.");
 
-        return "list-companies";
+        return "list-companies?faces-redirect=true";
     }
 
-    public String updatePage(Company o) {
-        this.id = o.getId();
-        this.typeOfOwnership = o.getTypeOfOwnership();
-        this.legalForm = o.getLegalForm();
+    public String redirectToUpdatePage(Company o) {
+        return "edit-company?faces-redirect=true&id=" + o.getId();
+    }
 
-        return "edit-company";
+    public String redirectToEmployeesPage(Company o) {
+        return "/pages/employee/list-employees?faces-redirect=true&companyId=" + o.getId();
     }
 
     public String update() {
         CompanyDAO companyDAO = new CompanyDAO();
-        Company company = new Company(typeOfOwnership, legalForm);
+        Company company = new Company(typeOfOwnership, legalForm, companyName, managerName, fax, phoneNumber,
+                webPage, licenseNumber, licenseDate, certificateNumber, certificateDate,
+                address, attachedFilesPath);
         company.setId(id);
         companyDAO.update(company);
         System.out.println("Company has been successfully saved.");
 
-        return "list-companies";
+        return "list-companies?faces-redirect=true";
     }
 
     public String delete(int id) {
@@ -73,7 +132,7 @@ public class CompanyBean {
         System.out.println(id);
         System.out.println("Company successfully deleted.");
 
-        return "list-companies";
+        return "list-companies?faces-redirect=true";
     }
 
     public String getTypeOfOwnership() {
@@ -100,21 +159,92 @@ public class CompanyBean {
         this.id = id;
     }
 
-    public void validateTheCourseCode(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public String getCompanyName() {
+        return companyName;
+    }
 
-        if (value == null) {
-            return;
-        }
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
-        String data = value.toString();
+    public String getManagerName() {
+        return managerName;
+    }
 
-        // course validation
-        if (!data.startsWith("Sabina")) {
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
 
-            FacesMessage message = new FacesMessage("Course must start with Sabina");
+    public String getFax() {
+        return fax;
+    }
 
-            throw new ValidatorException(message);
-        }
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getWebPage() {
+        return webPage;
+    }
+
+    public void setWebPage(String webPage) {
+        this.webPage = webPage;
+    }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
+    }
+
+    public Date getLicenseDate() {
+        return licenseDate;
+    }
+
+    public void setLicenseDate(Date licenseDate) {
+        this.licenseDate = licenseDate;
+    }
+
+    public String getCertificateNumber() {
+        return certificateNumber;
+    }
+
+    public void setCertificateNumber(String certificateNumber) {
+        this.certificateNumber = certificateNumber;
+    }
+
+    public Date getCertificateDate() {
+        return certificateDate;
+    }
+
+    public void setCertificateDate(Date certificateDate) {
+        this.certificateDate = certificateDate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAttachedFilesPath() {
+        return attachedFilesPath;
+    }
+
+    public void setAttachedFilesPath(String attachedFilesPath) {
+        this.attachedFilesPath = attachedFilesPath;
     }
 
 }

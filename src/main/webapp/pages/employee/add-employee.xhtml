@@ -22,6 +22,43 @@
                     <h:inputText styleClass="form-control" id="homePhoneNumber" value="#{employeeBean.homePhoneNumber}" a:placeholder="Home phone number" />
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="cellphoneNumber" class="col-sm-2 col-form-label">Cellphone number</label>
+                <div class="col-sm-10">
+                    <h:inputText styleClass="form-control" id="cellphoneNumber" value="#{employeeBean.cellphoneNumber}" a:placeholder="Cellphone number" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="workPhoneNumber" class="col-sm-2 col-form-label">Work phone number</label>
+                <div class="col-sm-10">
+                    <h:inputText styleClass="form-control" id="workPhoneNumber" value="#{employeeBean.workPhoneNumber}" a:placeholder="Work phone number" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="homeAddress" class="col-sm-2 col-form-label">Home address</label>
+                <div class="col-sm-10">
+                    <h:inputText styleClass="form-control" id="homeAddress" value="#{employeeBean.homeAddress}" a:placeholder="Home address" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <h:inputText styleClass="form-control" id="email" value="#{employeeBean.email}" a:placeholder="Email" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="bankDetails" class="col-sm-2 col-form-label">Bank details</label>
+                <div class="col-sm-10">
+                    <h:inputText styleClass="form-control" id="bankDetails" value="#{employeeBean.bankDetails}" a:placeholder="Bank details" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="position" class="col-sm-2 col-form-label">Position</label>
+                <div class="col-sm-10">
+                    <h:inputText styleClass="form-control" id="position" value="#{employeeBean.position}" a:placeholder="Position" />
+                    <h:inputHidden id="companyId" value="#{employeeBean.companyId}"/>
+                </div>
+            </div>
 
             <div class="form-group row">
                 <div class="col-sm-10">

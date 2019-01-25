@@ -30,27 +30,21 @@ public class CompanyDAO {
         session.delete(entity);
         session.getTransaction().commit();
         session.close();
-//        session.createQuery("delete Entity where id = " + id).executeUpdate();
-//        session.close();
     }
-
-//    public Integer getId() {
-//        String hql = "select max(user.id) from Employee employee";
-//        Query query = session.createQuery(hql);
-//        List<Integer> results = query.list();
-//        int userId = 1;
-//        if (results.get(0) != null) {
-//            userId = results.get(0) + 1;
-//        }
-//        return userId;
-//    }
 
     public List<Company> getAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-//        session.createQuery("select * from employee").list();
         List<Company> companies = session.createCriteria(Company.class).list();
         session.close();
 
         return companies;
+    }
+
+    public Company getCompany(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Company company = (Company) session.get(Company.class, id);
+        session.close();
+
+        return company;
     }
 }

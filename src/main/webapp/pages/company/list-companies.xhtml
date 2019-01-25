@@ -28,13 +28,72 @@
             </h:column>
 
             <h:column>
+                <f:facet name="header">Company name</f:facet>
+                #{o.companyName}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Manager name</f:facet>
+                #{o.managerName}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Fax</f:facet>
+                #{o.fax}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Phone number</f:facet>
+                #{o.phoneNumber}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Web page</f:facet>
+                #{o.webPage}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">License number</f:facet>
+                #{o.licenseNumber}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">License date</f:facet>
+                #{o.licenseDate}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Certificate number</f:facet>
+                #{o.certificateNumber}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Certificate date</f:facet>
+                #{o.certificateDate}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Address</f:facet>
+                #{o.address}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Attached files path</f:facet>
+                #{o.attachedFilesPath}
+            </h:column>
+
+            <h:column>
                 <f:facet name="header">Actions</f:facet>
                 <h:form>
                     <h:commandLink value="Delete" action="#{companyBean.delete(o.id)}"/>
                 </h:form>
 
                 <h:form>
-                    <h:commandLink value="Update" action="#{companyBean.updatePage(o)}"/>
+                    <h:commandLink value="Update" action="#{companyBean.redirectToUpdatePage(o)}"/>
+                </h:form>
+
+                <h:form>
+                    <h:commandLink value="View" action="#{companyBean.redirectToEmployeesPage(o)}"/>
                 </h:form>
 
                <!-- <h:link value="Edit" outcome="edit-employee.xhtml">

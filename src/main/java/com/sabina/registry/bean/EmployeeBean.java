@@ -3,69 +3,110 @@ package com.sabina.registry.bean;
 import com.sabina.registry.dao.EmployeeDAO;
 import com.sabina.registry.entity.Employee;
 
-import javax.faces.application.FacesMessage;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 import java.util.List;
+import java.util.Map;
 
-@ManagedBean(name = "employeeBean", eager = true)
-@SessionScoped
+@ManagedBean(name = "employeeBean")
+@RequestScoped
 public class EmployeeBean {
+    private List<Employee> employeeList;
 
-    private Integer id;
-
+    private int id;
     private String employeeName;
-
     private String homePhoneNumber;
+
+    private String cellphoneNumber;
+    private String workPhoneNumber;
+    private String homeAddress;
+    private String email;
+    private String bankDetails;
+    private String position;
+
+    private int companyId;
 
     public EmployeeBean() {
 
     }
 
-//    private static final Employee[] employeeList = new Employee[] {
-//        new Employee("Intel CPU", "123"),
-//        new Employee("Intel weCPU", "1323"),
-//        new Employee("Intel 23CPU", "12233"),
-//    };
+    @PostConstruct
+    public void init() {
+        EmployeeDAO employeeDAO = new EmployeeDAO();
+        Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 
-//    public Employee[] getEmployeeList() {
-////        return employeeList;
-////    }
+        String employeeId = requestParameterMap.get("id");
+        String compId = requestParameterMap.get("companyId");
+
+        // get employee details
+        if (employeeId != null) {
+            int parsedId = Integer.parseInt(employeeId);
+            System.out.println("ID =  " + parsedId);
+
+            Employee employee = employeeDAO.getEmployee(parsedId);
+
+            if (employee == null) {
+                System.out.println("User not found: " + parsedId);
+                return;
+            }
+
+            id = parsedId;
+            employeeName = employee.getEmployeeName();
+            homePhoneNumber = employee.getHomePhoneNumber();
+            cellphoneNumber = employee.getCellphoneNumber();
+            workPhoneNumber = employee.getWorkPhoneNumber();
+            homeAddress = employee.getHomeAddress();
+            email = employee.getEmail();
+            bankDetails = employee.getBankDetails();
+            position = employee.getPosition();
+            companyId = employee.getCompany().getId();
+        }
+
+        // get employees by companies
+        else if (compId != null) {
+            int parsedId = Integer.parseInt(compId);
+            System.out.println("companyId = " + parsedId);
+            employeeList = employeeDAO.getAllEmployees(parsedId);
+            companyId = parsedId;
+        }
+
+        // get all employees
+        else {
+            employeeList = employeeDAO.getAllEmployees();
+        }
+    }
 
     public List<Employee> getEmployeeList() {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
-        return employeeDAO.getAllEmployees();
+        return employeeList;
     }
 
     public String save() {
+
         EmployeeDAO employeeDAO = new EmployeeDAO();
-        Employee employee = new Employee(employeeName, homePhoneNumber);
+        Employee employee = new Employee(employeeName, homePhoneNumber, cellphoneNumber, workPhoneNumber,
+                                         homeAddress, email, bankDetails, position, companyId);
         employeeDAO.save(employee);
         System.out.println("Employee has been successfully saved.");
 
-        return "list-employees";
+        return "list-employees?faces-redirect=true";
     }
 
-    public String updatePage(Employee o) {
-        this.id = o.getId();
-        this.employeeName = o.getEmployeeName();
-        this.homePhoneNumber = o.getHomePhoneNumber();
-
-        return "edit-employee";
+    public String redirectToUpdatePage(int id) {
+        return "edit-employee?faces-redirect=true&id=" + id;
     }
 
     public String update() {
+        System.out.println(employeeName + " " + homePhoneNumber + " Id: " + id);
         EmployeeDAO employeeDAO = new EmployeeDAO();
-        Employee employee = new Employee(employeeName, homePhoneNumber);
+        Employee employee = new Employee(employeeName, homePhoneNumber, cellphoneNumber, workPhoneNumber,
+                                         homeAddress, email, bankDetails, position, companyId);
         employee.setId(id);
         employeeDAO.update(employee);
         System.out.println("Employee has been successfully saved.");
 
-        return "list-employees";
+        return "list-employees?faces-redirect=true";
     }
 
     public String delete(int id) {
@@ -74,7 +115,15 @@ public class EmployeeBean {
         System.out.println(id);
         System.out.println("Employee has been successfully deleted.");
 
-        return "list-employees";
+        return "list-employees?faces-redirect=true";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmployeeName() {
@@ -93,29 +142,60 @@ public class EmployeeBean {
         this.homePhoneNumber = homePhoneNumber;
     }
 
-    public Integer getId() {
-        return id;
+    public String getCellphoneNumber() {
+        return cellphoneNumber;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCellphoneNumber(String cellphoneNumber) {
+        this.cellphoneNumber = cellphoneNumber;
     }
 
-    public void validateTheCourseCode(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public String getWorkPhoneNumber() {
+        return workPhoneNumber;
+    }
 
-        if (value == null) {
-            return;
-        }
+    public void setWorkPhoneNumber(String workPhoneNumber) {
+        this.workPhoneNumber = workPhoneNumber;
+    }
 
-        String data = value.toString();
+    public String getHomeAddress() {
+        return homeAddress;
+    }
 
-        // course validation
-        if (!data.startsWith("Sabina")) {
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
 
-            FacesMessage message = new FacesMessage("Course must start with Sabina");
+    public String getEmail() {
+        return email;
+    }
 
-            throw new ValidatorException(message);
-        }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getBankDetails() {
+        return bankDetails;
+    }
+
+    public void setBankDetails(String bankDetails) {
+        this.bankDetails = bankDetails;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
 }
