@@ -1,6 +1,7 @@
 <ui:composition template="/WEB-INF/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
@@ -12,29 +13,34 @@
         <h:form>
             <input type="hidden" name="id" value="#{companyBean.id}" />
             <div class="form-group row">
-                <label for="typeOfOwnership" class="col-sm-2 col-form-label">Type of ownership</label>
+                <label for="typeOfOwnership" class="col-sm-2 col-form-label">Type of ownership*</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="typeOfOwnership" value="#{companyBean.typeOfOwnership}" a:placeholder="Type of ownership" />
+                    <h:inputText styleClass="form-control" id="typeOfOwnership" value="#{companyBean.typeOfOwnership}" a:placeholder="Type of ownership" required="true" requiredMessage="#{companyBean.requiredMessage}"/>
+                    <h:message for="typeOfOwnership" style="color: red;"/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="legalForm" class="col-sm-2 col-form-label">Legal form</label>
+                <label for="legalForm" class="col-sm-2 col-form-label">Legal form*</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="legalForm" value="#{companyBean.legalForm}" a:placeholder="Legal form" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="companyName" class="col-sm-2 col-form-label">Company name</label>
-                <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="companyName" value="#{companyBean.companyName}" a:placeholder="Company name" />
+                    <h:inputText styleClass="form-control" id="legalForm" value="#{companyBean.legalForm}" a:placeholder="Legal form"  required="true" requiredMessage="#{companyBean.requiredMessage}"/>
+                    <h:message for="legalForm" style="color: red;"/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="managerName" class="col-sm-2 col-form-label">Manager name</label>
+                <label for="companyName" class="col-sm-2 col-form-label">Company name*</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="managerName" value="#{companyBean.managerName}" a:placeholder="Manager name" />
+                    <h:inputText styleClass="form-control" id="companyName" value="#{companyBean.companyName}" a:placeholder="Company name"  required="true" requiredMessage="#{companyBean.requiredMessage}"/>
+                    <h:message for="companyName" style="color: red;"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="managerName" class="col-sm-2 col-form-label">Manager name*</label>
+                <div class="col-sm-10">
+                    <h:inputText styleClass="form-control" id="managerName" value="#{companyBean.managerName}" a:placeholder="Manager name"  required="true" requiredMessage="#{companyBean.requiredMessage}"/>
+                    <h:message for="managerName" style="color: red;"/>
                 </div>
             </div>
 
@@ -46,9 +52,10 @@
             </div>
 
             <div class="form-group row">
-                <label for="phoneNumber" class="col-sm-2 col-form-label">Phone number</label>
+                <label for="phoneNumber" class="col-sm-2 col-form-label">Phone number*</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="phoneNumber" value="#{companyBean.phoneNumber}" a:placeholder="Phone number" />
+                    <h:inputText styleClass="form-control" id="phoneNumber" value="#{companyBean.phoneNumber}" a:placeholder="Phone number"  required="true" requiredMessage="#{companyBean.requiredMessage}"/>
+                    <h:message for="phoneNumber" style="color: red;"/>
                 </div>
             </div>
 
@@ -60,44 +67,55 @@
             </div>
 
             <div class="form-group row">
-                <label for="licenseNumber" class="col-sm-2 col-form-label">License number</label>
+                <label for="licenseNumber" class="col-sm-2 col-form-label">License number*</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="licenseNumber" value="#{companyBean.licenseNumber}" a:placeholder="License number" />
+                    <h:inputText styleClass="form-control" id="licenseNumber" value="#{companyBean.licenseNumber}" a:placeholder="License number" required="true" requiredMessage="#{companyBean.requiredMessage}">
+                        <f:validator validatorId="com.sabina.registry.validators.UniqueValidator"/>
+                    </h:inputText>
+                    <h:message for="licenseNumber" style="color: red;"/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="licenseDate" class="col-sm-2 col-form-label">License date</label>
+                <label for="licenseDate" class="col-sm-2 col-form-label">License date*</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="licenseDate" value="#{companyBean.licenseDate}" a:placeholder="License date" />
+                    <h:inputText styleClass="form-control" id="licenseDate" value="#{companyBean.licenseDate}" a:placeholder="d-M-yyyy" required="true" requiredMessage="#{companyBean.requiredMessage}" converterMessage="Incorrect date format">
+                        <f:convertDateTime pattern="d-M-yyyy" />
+                    </h:inputText>
+                    <h:message for="licenseDate" style="color: red;"/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="certificateNumber" class="col-sm-2 col-form-label">Certificate number</label>
+                <label for="certificateNumber" class="col-sm-2 col-form-label">Certificate number*</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="certificateNumber" value="#{companyBean.certificateNumber}" a:placeholder="Certificate number" />
+                    <h:inputText styleClass="form-control" id="certificateNumber" value="#{companyBean.certificateNumber}" a:placeholder="Certificate number"  required="true" requiredMessage="#{companyBean.requiredMessage}"/>
+                    <h:message for="certificateNumber" style="color: red;"/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="certificateDate" class="col-sm-2 col-form-label">Certificate date</label>
+                <label for="certificateDate" class="col-sm-2 col-form-label">Certificate date*</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="certificateDate" value="#{companyBean.certificateDate}" a:placeholder="Certificate date" />
+                    <h:inputText styleClass="form-control" id="certificateDate" value="#{companyBean.certificateDate}" a:placeholder="d-M-yyyy" required="true" requiredMessage="#{companyBean.requiredMessage}" converterMessage="Incorrect date format">
+                        <f:convertDateTime pattern="d-M-yyyy"/>
+                    </h:inputText>
+                    <h:message for="certificateDate" style="color: red;"/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="address" class="col-sm-2 col-form-label">Address</label>
+                <label for="address" class="col-sm-2 col-form-label">Address*</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="address" value="#{companyBean.address}" a:placeholder="Address" />
+                    <h:inputText styleClass="form-control" id="address" value="#{companyBean.address}" a:placeholder="Address"  required="true" requiredMessage="#{companyBean.requiredMessage}"/>
+                    <h:message for="address" style="color: red;"/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="attachedFilesPath" class="col-sm-2 col-form-label">Attached files path</label>
+                <label for="attachedFilesPath" class="col-sm-2 col-form-label">Attached files</label>
                 <div class="col-sm-10">
-                    <h:inputText styleClass="form-control" id="attachedFilesPath" value="#{companyBean.attachedFilesPath}" a:placeholder="Attached files path" />
+                    <h:inputText styleClass="form-control" id="attachedFilesPath" value="#{companyBean.attachedFilesPath}" a:placeholder="Attached files" />
                 </div>
             </div>
 

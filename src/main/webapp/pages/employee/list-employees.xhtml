@@ -62,13 +62,18 @@
             </h:column>
 
             <h:column>
+                <f:facet name="header">Company</f:facet>
+                #{o.company.companyName}
+            </h:column>
+
+            <h:column>
                 <f:facet name="header">Actions</f:facet>
                 <h:form>
                     <h:commandLink value="Delete" action="#{employeeBean.delete(o.id)}"/>
                 </h:form>
 
                 <h:form>
-                    <h:commandLink value="Update" action="#{employeeBean.redirectToUpdatePage(o.id)}"/
+                    <h:commandLink value="Update" action="#{employeeBean.redirectToUpdatePage(o.id)}"/>
                 </h:form>
             </h:column>
 

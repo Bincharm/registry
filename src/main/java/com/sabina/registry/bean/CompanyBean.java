@@ -46,6 +46,8 @@ public class CompanyBean {
 
     private String attachedFilesPath;
 
+    private String requiredMessage = "This field is required";
+
     public CompanyBean() {
 
     }
@@ -245,6 +247,14 @@ public class CompanyBean {
 
     public void setAttachedFilesPath(String attachedFilesPath) {
         this.attachedFilesPath = attachedFilesPath;
+    }
+
+    public String getRequiredMessage() {
+        return requiredMessage;
+    }
+
+    public void setRequiredMessage(String requiredMessage) {
+        this.requiredMessage = requiredMessage;
     }
 
 }

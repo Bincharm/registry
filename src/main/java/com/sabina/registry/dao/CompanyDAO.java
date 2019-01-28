@@ -47,4 +47,11 @@ public class CompanyDAO {
 
         return company;
     }
+
+    public boolean isLicenseNumberUnique(String licenseNumber){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List result = session.createQuery("SELECT 1 FROM Company p WHERE p.licenseNumber = :licenseNumber").setParameter("licenseNumber", licenseNumber).list();
+        session.close();
+        return result.size() == 0;
+    }
 }

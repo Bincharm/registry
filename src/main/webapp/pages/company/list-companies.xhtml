@@ -58,7 +58,9 @@
 
             <h:column>
                 <f:facet name="header">License date</f:facet>
-                #{o.licenseDate}
+                <h:outputText value="#{o.licenseDate}" >
+                    <f:convertDateTime pattern="dd.MM.yyyy" />
+                </h:outputText>
             </h:column>
 
             <h:column>
@@ -68,7 +70,9 @@
 
             <h:column>
                 <f:facet name="header">Certificate date</f:facet>
-                #{o.certificateDate}
+                <h:outputText value="#{o.certificateDate}" >
+                    <f:convertDateTime pattern="dd.MM.yyyy" />
+                </h:outputText>
             </h:column>
 
             <h:column>

@@ -28,6 +28,8 @@ public class EmployeeBean {
 
     private int companyId;
 
+    private String requiredMessage = "This field is required";
+
     public EmployeeBean() {
 
     }
@@ -90,7 +92,7 @@ public class EmployeeBean {
         employeeDAO.save(employee);
         System.out.println("Employee has been successfully saved.");
 
-        return "list-employees?faces-redirect=true";
+        return "list-employees?faces-redirect=true&companyId=" + companyId;
     }
 
     public String redirectToUpdatePage(int id) {
@@ -196,6 +198,14 @@ public class EmployeeBean {
 
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
+    }
+
+    public String getRequiredMessage() {
+        return requiredMessage;
+    }
+
+    public void setRequiredMessage(String requiredMessage) {
+        this.requiredMessage = requiredMessage;
     }
 
 }
